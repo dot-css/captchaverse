@@ -1,4 +1,6 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { Container, Typography, Button, Paper } from '@mui/material';
+import './App.css';
 
 function App() {
     useEffect(() => {
@@ -14,10 +16,16 @@ function App() {
     }, []);
 
     return (
-        <div className="App">
-            <h1>Welcome to Captchaverse</h1>
-            {/* Add your app components and logic here */}
-        </div>
+        <Container component="main" maxWidth="xs">
+            <Paper elevation={3} style={{ padding: '20px', textAlign: 'center' }}>
+                <Typography variant="h4" gutterBottom>
+                    Welcome to Captchaverse
+                </Typography>
+                <Button variant="contained" color="primary">
+                    Get Started
+                </Button>
+            </Paper>
+        </Container>
     );
 }
 
