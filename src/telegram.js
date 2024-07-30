@@ -13,3 +13,11 @@ export const getUserData = (tg) => {
         last_name: user.last_name
     } : null;
 };
+
+export const getDeviceData = (tg) => {
+    return {
+        platform: tg.platform,
+        themeParams: tg.themeParams,
+        colorScheme: tg.colorScheme
+    };
+};

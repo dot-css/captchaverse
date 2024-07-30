@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { initTelegram, getUserData } from './telegram';
+import { initTelegram, getUserData, getDeviceData } from './telegram';
 import { signInUser } from './auth';
 import './App.css';
 import { Container, Typography, Button, Paper } from '@mui/material';
@@ -12,13 +12,13 @@ function App() {
         if (storedUser) {
             const userData = JSON.parse(storedUser);
             setUser(userData);
-            signInUser(userData);
         } else {
             const tg = initTelegram();
             const userData = getUserData(tg);
+            const deviceData = getDeviceData(tg);
             if (userData) {
                 setUser(userData);
-                signInUser(userData);
+                signInUser(userData, deviceData);
             }
         }
     }, []);
