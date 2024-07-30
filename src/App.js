@@ -1,19 +1,31 @@
-import React, { useEffect } from 'react';
-import { Container, Typography, Button, Paper } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { initTelegram, getUserData } from './telegram';
+import { signInUser } from './auth';
 import './App.css';
+import { Container, Typography, Button, Paper } from '@mui/material';
 
 function App() {
-    useEffect(() => {
-        const script = document.createElement('script');
-        script.src = 'https://telegram.org/js/telegram-web-app.js';
-        script.async = true;
-        document.body.appendChild(script);
+    const [user, setUser] = useState(null);
 
-        script.onload = () => {
-            const tg = window.Telegram.WebApp;
-            tg.ready();
-        };
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            const userData = JSON.parse(storedUser);
+            setUser(userData);
+            signInUser(userData);
+        } else {
+            const tg = initTelegram();
+            const userData = getUserData(tg);
+            if (userData) {
+                setUser(userData);
+                signInUser(userData);
+            }
+        }
     }, []);
+
+    const handleStartApp = () => {
+        // Handle start app logic if needed
+    };
 
     return (
         <Container component="main" maxWidth="xs">
@@ -21,8 +33,13 @@ function App() {
                 <Typography variant="h4" gutterBottom>
                     Welcome to Captchaverse
                 </Typography>
-                <Button variant="contained" color="primary">
-                    Get Started
+                {user && (
+                    <Typography variant="body1">
+                        Logged in as {user.username}
+                    </Typography>
+                )}
+                <Button variant="contained" color="primary" onClick={handleStartApp}>
+                    Start App
                 </Button>
             </Paper>
         </Container>
