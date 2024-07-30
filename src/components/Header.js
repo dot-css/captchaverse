@@ -13,7 +13,7 @@ const styles = {
     ucContainer: {
         position: 'absolute',
         top: 10,
-        right: 10,
+        right: 20,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',

@@ -27,6 +27,7 @@ const styles = {
         fontFamily: 'Roboto, sans-serif',
         color: '#f5f5f5',
         marginBottom: '30px',
+        marginTop:'-100px'
     },
     captchaBox: {
         position: 'relative',
@@ -104,7 +105,7 @@ const styles = {
         cursor: 'pointer',
         '&:hover': {
             transform: 'scaleX(1)',
-            background: 'linear-gradient(82.3deg, rgba(150, 93, 233, 1) 10.8%, rgba(99, 88, 238, 1) 94.3%)',
+            background: '#00bcd4',
         },
     },
     bottomMenuContainer: {
@@ -121,7 +122,7 @@ const styles = {
         color: '#fff',
         borderTop: '1px solid #444',
         boxShadow: '0px -2px 10px rgba(0, 0, 0, 0.3)',
-        padding: '10px 0',
+        padding: '10px 10px',
     },
     menuItem: {
         color: '#ccc',
