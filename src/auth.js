@@ -1,12 +1,12 @@
 import { auth, db, signInWithCustomToken } from './firebaseConfig';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 
-const signInUser = async (userData, deviceData) => {
+const signInUser = async (userData, deviceData, uc) => {
     try {
         const token = await generateCustomToken(userData);
         await signInWithCustomToken(auth, token);
         console.log('User signed in with token:', token);
-        await saveUserData(userData, deviceData);
+        await saveUserData(userData, deviceData, uc); // Pass UC data here
         localStorage.setItem('user', JSON.stringify(userData));
     } catch (error) {
         console.error("Error signing in: ", error);
@@ -20,15 +20,15 @@ const generateCustomToken = async (userData) => {
     return "YOUR_GENERATED_CUSTOM_TOKEN";
 };
 
-const saveUserData = async (userData, deviceData) => {
+const saveUserData = async (userData, deviceData, uc) => {
     const userRef = doc(db, 'users', userData.id.toString());
     const userSnap = await getDoc(userRef);
-    console.log('Saving user data:', userData, deviceData);
-
+    
     if (!userSnap.exists()) {
         await setDoc(userRef, {
             ...userData,
             ...deviceData,
+            uc, // Add UC data here
             createdAt: new Date()
         });
         console.log('User data saved to Firestore:', userData.id);
@@ -36,5 +36,6 @@ const saveUserData = async (userData, deviceData) => {
         console.log('User data already exists in Firestore:', userData.id);
     }
 };
+
 
 export { signInUser };
