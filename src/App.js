@@ -21,11 +21,12 @@ const App = () => {
           padding: '20px',
           boxSizing: 'border-box',
           position: 'relative',
-          backgroundColor: '#f0f0f0',
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+          backgroundColor: '#1e1e1e', // Slightly lighter dark background
+          color: '#E0E0E0', // Light text color for readability
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Lighter shadow for better contrast
         }}
       >
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/referral" element={<Referral />} />

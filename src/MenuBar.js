@@ -24,9 +24,15 @@ const MenuBar = () => {
             <div
               style={{ 
                 ...styles.menuItem, 
-                ...(activeItem === item.path && styles.activeItem) 
+                ...(activeItem === item.path && styles.activeItem),
               }}
               onClick={() => setActiveItem(item.path)}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#FFFFFF'; // White text on hover
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = activeItem === item.path ? '#BB86FC' : '#B0B0B0'; // Reset to active or default color
+              }}
             >
               <div style={styles.iconContainer}>
                 {item.icon}
@@ -46,12 +52,12 @@ const styles = {
     justifyContent: 'space-around',
     alignItems: 'center',
     height: '60px',
-    borderTop: '1px solid #ccc',
+    borderTop: '1px solid #444', // Darker border for visibility
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    background: '#fff',
-    boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.1)',
+    background: '#2c2c2c', // Slightly lighter dark background for the menu bar
+    boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.5)',
     padding: '0 10px',
     boxSizing: 'border-box',
     borderRadius: '20px 20px 0 0',
@@ -63,14 +69,14 @@ const styles = {
     justifyContent: 'center',
     flex: 1,
     textAlign: 'center',
-    color: '#b0b0b0',
+    color: '#B0B0B0', // Medium gray for text
     transition: 'color 0.3s ease',
     cursor: 'pointer',
     padding: '10px 0',
     position: 'relative',
   },
   activeItem: {
-    color: '#3366FF', // Blue color for the active icon
+    color: '#BB86FC', // Light purple for the active icon
   },
   iconContainer: {
     fontSize: '24px',
@@ -80,7 +86,7 @@ const styles = {
     bottom: 0,
     width: '30px',
     height: '3px',
-    background: '#3366FF',
+    background: '#BB86FC', // Light purple for the active line
     borderRadius: '2px',
   },
 };
