@@ -1,5 +1,4 @@
-// src/MenuBar.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaHome, FaUser, FaTasks, FaCalendarAlt, FaUsers } from 'react-icons/fa';
 import Tooltip from '@mui/material/Tooltip';
 import { Link, useLocation } from 'react-router-dom';
@@ -8,10 +7,16 @@ const MenuBar = () => {
   const location = useLocation();
   const [activeItem, setActiveItem] = useState(location.pathname);
 
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setActiveItem('/');
+    }
+  }, [location.pathname]);
+
   const menuItems = [
-    { icon: <FaHome />, label: 'Home', path: '/' },
     { icon: <FaUsers />, label: 'Referral', path: '/referral' },
     { icon: <FaCalendarAlt />, label: 'Events', path: '/events' },
+    { icon: <FaHome />, label: 'Home', path: '/' },
     { icon: <FaTasks />, label: 'Task', path: '/task' },
     { icon: <FaUser />, label: 'Profile', path: '/profile' },
   ];
@@ -51,7 +56,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    height: '60px',
+    height: '80px',
     borderTop: '1px solid #444', // Darker border for visibility
     position: 'absolute',
     bottom: 0,
@@ -83,7 +88,7 @@ const styles = {
   },
   activeLine: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 3,
     width: '30px',
     height: '3px',
     background: '#BB86FC', // Light purple for the active line
