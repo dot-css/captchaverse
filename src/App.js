@@ -1,4 +1,3 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MenuBar from './MenuBar';
@@ -7,6 +6,7 @@ import Referral from './screens/Referral';
 import Events from './screens/Events';
 import Task from './screens/Task';
 import Profile from './screens/Profile';
+import UserDataProvider from './UserDataProvider';
 
 const App = () => {
   return (
@@ -32,7 +32,7 @@ const App = () => {
             <Route path="/referral" element={<Referral />} />
             <Route path="/events" element={<Events />} />
             <Route path="/task" element={<Task />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<UserDataProvider />} /> {/* Use UserDataProvider here */}
           </Routes>
         </div>
         <MenuBar />
