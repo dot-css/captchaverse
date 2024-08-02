@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/captchaverse/static/js/main.3e737acb.js",
+    "main.js": "/captchaverse/static/js/main.c32619d6.js",
     "index.html": "/captchaverse/index.html",
-    "main.3e737acb.js.map": "/captchaverse/static/js/main.3e737acb.js.map"
+    "main.c32619d6.js.map": "/captchaverse/static/js/main.c32619d6.js.map"
   },
   "entrypoints": [
-    "static/js/main.3e737acb.js"
+    "static/js/main.c32619d6.js"
   ]
 }
