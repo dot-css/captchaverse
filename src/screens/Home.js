@@ -151,9 +151,11 @@ const headerStyle = {
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '10px 20px',
-  backgroundColor: '#1f1f1f', // Darker header background
-  
+  backgroundColor: '#1f1f1f',
+  marginBottom: '10px', // Reduced margin-bottom to decrease the gap
 };
+
+
 
 const titleStyle = {
   fontSize: '1.5rem',
@@ -176,7 +178,8 @@ const mainStyle = {
 const buttonContainerStyle = {
   display: 'flex',
   gap: '10px',
-  marginBottom: '50px',
+  marginBottom: '20px',
+  marginTop: '-150px', // Reduce margin-top
 };
 
 const difficultyButtonStyle = {
