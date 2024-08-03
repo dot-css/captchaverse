@@ -1,5 +1,6 @@
+// UserDataProvider.js
 import React, { useEffect, useState } from 'react';
-import { db } from './firebaseConfig';
+import { db } from './firebaseConfig'; // Ensure this is correctly configured
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -31,17 +32,19 @@ const UserDataProvider = ({ children }) => {
                 })
                 .then(() => {
                   toast.success('Registration successful!');
+                  setLoading(false);
                   navigate('/'); // Redirect to Home after registration
                 })
                 .catch((error) => {
                   console.error('Error writing document:', error);
                   toast.error('Error registering user.');
+                  setLoading(false);
                 });
               } else {
                 toast.info('Welcome back!');
+                setLoading(false);
                 navigate('/'); // Redirect to Home if user already exists
               }
-              setLoading(false);
             })
             .catch((error) => {
               console.error('Error getting document:', error);

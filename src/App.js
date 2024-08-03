@@ -34,6 +34,7 @@ const App = () => {
             <Route path="/events" element={<Events />} />
             <Route path="/task" element={<Task />} />
           </Routes>
+          
         </div>
         <MenuBar />
         <ToastContainer />
