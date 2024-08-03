@@ -1,15 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+// src/App.js
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MenuBar from './MenuBar';
 import Home from './screens/Home';
 import Referral from './screens/Referral';
 import Events from './screens/Events';
 import Task from './screens/Task';
-import UserDataProvider from './UserDataProvider';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Profile from './screens/Profile';
 
 const App = () => {
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    if (window.Telegram.WebApp.initData) {
+      const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe;
+      if (initDataUnsafe && initDataUnsafe.user) {
+        setUserData(initDataUnsafe.user);
+      }
+    }
+  }, []);
+
   return (
     <Router>
       <div
@@ -27,17 +37,21 @@ const App = () => {
           boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
         }}
       >
+        {userData ? (
+          <div>Welcome, {userData.first_name}!</div>
+        ) : (
+          <div>Loading...</div>
+        )}
         <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           <Routes>
-            <Route path="/" element={<UserDataProvider />} />
+            <Route path="/" element={<Home />} />
             <Route path="/referral" element={<Referral />} />
             <Route path="/events" element={<Events />} />
             <Route path="/task" element={<Task />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
-          
         </div>
         <MenuBar />
-        <ToastContainer />
       </div>
     </Router>
   );
