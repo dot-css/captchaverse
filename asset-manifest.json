@@ -1,10 +1,13 @@
 {
   "files": {
-    "main.js": "/captchaverse/static/js/main.c32619d6.js",
+    "main.css": "/captchaverse/static/css/main.f029a054.css",
+    "main.js": "/captchaverse/static/js/main.5408dd45.js",
     "index.html": "/captchaverse/index.html",
-    "main.c32619d6.js.map": "/captchaverse/static/js/main.c32619d6.js.map"
+    "main.f029a054.css.map": "/captchaverse/static/css/main.f029a054.css.map",
+    "main.5408dd45.js.map": "/captchaverse/static/js/main.5408dd45.js.map"
   },
   "entrypoints": [
-    "static/js/main.c32619d6.js"
+    "static/css/main.f029a054.css",
+    "static/js/main.5408dd45.js"
   ]
 }
