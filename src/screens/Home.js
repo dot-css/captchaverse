@@ -121,6 +121,7 @@ const Home = () => {
     </div>
   );
 };
+
 const styles = {
   container: { display: 'flex', flexDirection: 'column', height: '100vh', color: '#ffffff', width: '100vw', fontFamily: 'Roboto, sans-serif' },
   header: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', backgroundColor: '#1f1f1f', marginBottom: '10px', flexShrink: 0 },
