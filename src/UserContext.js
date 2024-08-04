@@ -1,5 +1,4 @@
-// src/UserContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const UserContext = createContext();
 
@@ -13,7 +12,16 @@ export const useUserContext = () => {
 
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
-  const [points, setPoints] = useState(0); // Add points state
+  const [points, setPoints] = useState(() => {
+    // Retrieve points from local storage, default to 0 if not found
+    const savedPoints = localStorage.getItem('points');
+    return savedPoints ? parseInt(savedPoints, 10) : 0;
+  });
+
+  useEffect(() => {
+    // Update local storage whenever points change
+    localStorage.setItem('points', points);
+  }, [points]);
 
   return (
     <UserContext.Provider value={{ userData, setUserData, points, setPoints }}>
