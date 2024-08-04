@@ -1,9 +1,12 @@
+// src/screens/Home.js
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaSync } from 'react-icons/fa';
+import { useUserContext } from '../UserContext';
+import { storeUserData } from '../storeUserData';
 
 const Home = () => {
-  const [points, setPoints] = useState(0);
+  const { userData, points, setPoints } = useUserContext();
   const [difficulty, setDifficulty] = useState('easy');
   const [captcha, setCaptcha] = useState('');
   const [timer, setTimer] = useState(10);
@@ -12,7 +15,7 @@ const Home = () => {
 
   useEffect(() => {
     startGame('easy');
-    return () => clearInterval(intervalId); 
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
@@ -26,6 +29,12 @@ const Home = () => {
       startGame(difficulty);
     }
   }, [timer, difficulty]);
+
+  useEffect(() => {
+    if (userData) {
+      storeUserData(userData, points); // Store updated points with user data
+    }
+  }, [points, userData]);
 
   const generateCaptcha = () => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -200,8 +209,12 @@ const captchaBoxStyle = {
   alignItems: 'center',
   border: '1px solid #444444',
   position: 'relative',
+  userSelect: 'none', // Prevents text selection
+  MozUserSelect: 'none', // For Firefox
+  WebkitUserSelect: 'none', // For WebKit browsers (Chrome, Safari)
+  msUserSelect: 'none', // For Internet Explorer/Edge
+  cursor: 'default', // Changes the cursor to default, indicating no interaction
 };
-
 const refreshIconStyle = {
   marginLeft: '10px',
   cursor: 'pointer',

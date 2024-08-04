@@ -13,9 +13,10 @@ export const useUserContext = () => {
 
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
+  const [points, setPoints] = useState(0); // Add points state
 
   return (
-    <UserContext.Provider value={{ userData, setUserData }}>
+    <UserContext.Provider value={{ userData, setUserData, points, setPoints }}>
       {children}
     </UserContext.Provider>
   );
