@@ -1,102 +1,154 @@
-// src/screens/Profile.js
 import React, { useState } from 'react';
-// import { useUserContext } from '../UserContext';
+import toast, { Toaster } from 'react-hot-toast';
+import { FaEdit } from 'react-icons/fa';
+import { useUserContext } from '../UserContext'; // Import UserContext to get userData
+import { storeUserData } from '../storeUserData';
 
 const Profile = () => {
-  // const { userData } = useUserContext();
-  const [solanaAddress, setSolanaAddress] = useState('');
+  const { userData } = useUserContext(); // Get userData from context
+  const [editing, setEditing] = useState(false);
+  const [walletAddress, setWalletAddress] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
-  // if (!userData) {
-  //   return <div style={styles.loading}>Loading...</div>;
-  // }
+  const handleSubmit = async () => {
+    setEditing(false);
+    setSubmitted(true);
+    toast.success('Wallet address updated!');
+    await storeUserData(userData, walletAddress); // Call storeUserData with walletAddress
+  };
 
-  const handleAddressChange = (e) => {
-    setSolanaAddress(e.target.value);
+  const handleEdit = () => {
+    setEditing(true);
+    setSubmitted(false);
+  };
+
+  const formatAddress = (address) => {
+    if (address.length <= 8) return address;
+    return `${address.slice(0, 4)}...${address.slice(-4)}`;
   };
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.title}>Profile Screen</h2>
-      <div style={styles.info}>
-        {/* <p><strong>First Name:</strong> {userData.first_name}</p>
-        <p><strong>Last Name:</strong> {userData.last_name}</p>
-        <p><strong>Username:</strong> {userData.username}</p> */}
-
+      <div style={styles.content}>
+        {!submitted && (
+          <h1 style={styles.title}>
+            {userData ? `${userData.first_name} ${userData.last_name}` : 'Add Your Solana Wallet'}
+          </h1>
+        )}
+        {editing ? (
+          <>
+            <input
+              type="text"
+              style={styles.input}
+              placeholder="Enter Wallet Address"
+              value={walletAddress}
+              onChange={(e) => setWalletAddress(e.target.value)}
+            />
+            <button style={styles.submitButton} onClick={handleSubmit}>
+              Submit
+            </button>
+          </>
+        ) : (
+          <>
+            <h2 style={styles.subTitle}>
+              {walletAddress ? 'Your Solana Wallet Address is' : ''}
+            </h2>
+            {walletAddress ? (
+              <>
+                <p style={styles.address}>{formatAddress(walletAddress)}</p>
+                <button style={styles.editButton} onClick={handleEdit}>
+                  <FaEdit style={styles.editIcon} />
+                  Edit
+                </button>
+              </>
+            ) : (
+              <button style={styles.editButton} onClick={handleEdit}>
+                Add Address
+              </button>
+            )}
+          </>
+        )}
       </div>
-      <div style={styles.addressContainer}>
-        <label htmlFor="solana-address" style={styles.label}>Solana Address:</label>
-        <input
-          type="text"
-          id="solana-address"
-          value={solanaAddress}
-          onChange={handleAddressChange}
-          placeholder="Enter Solana Address"
-          style={styles.input}
-        />
-      </div>
+      <Toaster />
     </div>
   );
 };
+
 const styles = {
   container: {
-    maxWidth: '600px',
-    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '100vh',
+    color: '#FFFFFF',
+    fontFamily: 'Roboto, sans-serif',
     padding: '20px',
-    borderRadius: '12px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#ffffff',
-    border: '1px solid #e0e0e0',
+    margin: '0',
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    maxWidth: '500px',
+    width: '100%',
   },
   title: {
-    fontSize: '28px',
-    fontWeight: '600',
+    fontSize: '1.5rem',
+    fontWeight: 700,
     marginBottom: '20px',
-    color: '#333',
-    textAlign: 'center',
   },
-  info: {
-    marginBottom: '20px',
-    padding: '15px',
-    backgroundColor: '#f4f4f4',
-    borderRadius: '8px',
-    border: '1px solid #ddd',
-  },
-  infoItem: {
-    margin: '10px 0',
-    fontSize: '16px',
-    color: '#555',
-  },
-  addressContainer: {
-    marginTop: '20px',
-    padding: '15px',
-    backgroundColor: '#f9f9f9',
-    borderRadius: '8px',
-    border: '1px solid #ddd',
-  },
-  label: {
-    display: 'block',
-    fontSize: '16px',
-    marginBottom: '8px',
-    fontWeight: '500',
-    color: '#333',
+  subTitle: {
+    fontSize: '1.2rem',
+    fontWeight: 500,
+    marginBottom: '10px',
   },
   input: {
     width: '100%',
-    padding: '12px',
-    fontSize: '16px',
-    borderRadius: '8px',
-    border: '1px solid #ccc',
-    boxSizing: 'border-box',
-    outline: 'none',
-    transition: 'border-color 0.3s ease',
+    padding: '10px',
+    marginBottom: '20px',
+    backgroundColor: '#333333',
+    color: '#FFFFFF',
+    borderRadius: '4px',
+    border: 'none',
   },
-  inputFocus: {
-    borderColor: '#007bff',
+  submitButton: {
+    width: '100%',
+    maxWidth: '150px',
+    padding: '10px',
+    fontSize: '1rem',
+    backgroundColor: '#333333',
+    color: '#FFFFFF',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  loading: {
-    textAlign: 'center',
-    fontSize: '18px',
-    color: '#888',
+  editButton: {
+    width: '100%',
+    maxWidth: '150px',
+    padding: '10px',
+    fontSize: '1rem',
+    backgroundColor: '#333333',
+    color: '#FFFFFF',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  editIcon: {
+    marginRight: '8px',
+  },
+  address: {
+    fontSize: '1.2rem',
+    marginBottom: '20px',
   },
 };
 
