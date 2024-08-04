@@ -79,7 +79,7 @@ const Home = () => {
   return (
     <div style={styles.container}>
       <header style={styles.header}>
-        <h1 style={styles.title}>Captchaverse</h1>
+      <h1 style={styles.title}>{userData ? `${userData.first_name} ${userData.last_name}` : '!'}</h1>
         <div style={styles.points}>UC {points}</div>
       </header>
       <main style={styles.main}>
