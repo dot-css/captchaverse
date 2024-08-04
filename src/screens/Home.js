@@ -12,7 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     startGame('easy');
-    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+    return () => clearInterval(intervalId); 
   }, []);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Home = () => {
       setIntervalId(id);
       return () => clearInterval(id);
     } else if (timer === 0 && difficulty) {
-      handleWrongAnswer();
+      startGame(difficulty);
     }
   }, [timer, difficulty]);
 
@@ -56,19 +56,10 @@ const Home = () => {
   };
 
   const handleWrongAnswer = () => {
-    switch (difficulty) {
-      case 'easy':
-        setPoints(prev => Math.max(0, prev - 2));
-        break;
-      case 'medium':
-        setPoints(prev => Math.max(0, prev - 5));
-        break;
-      case 'hard':
-        setPoints(prev => Math.max(0, prev - 10));
-        break;
-      default:
-        break;
-    }
+    const deduction = difficulty === 'easy' ? 2 : difficulty === 'medium' ? 5 : 10;
+    const newPoints = Math.max(0, points - deduction);
+    setPoints(newPoints);
+    toast.error(`Wrong CAPTCHA! -${deduction} UC`);
     startGame(difficulty);
   };
 
@@ -92,7 +83,6 @@ const Home = () => {
       }
       startGame(difficulty);
     } else {
-      toast.error('Wrong CAPTCHA!');
       handleWrongAnswer();
     }
   };
