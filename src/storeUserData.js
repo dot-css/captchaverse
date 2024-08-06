@@ -1,4 +1,3 @@
-// src/storeUserData.js
 import { db } from './firebaseConfig'; // Adjust the import path according to your file structure
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';

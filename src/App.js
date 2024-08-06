@@ -8,33 +8,20 @@ import Events from './screens/Events';
 import Task from './screens/Task';
 import Profile from './screens/Profile';
 import { UserProvider, useUserContext } from './UserContext';
-import { fetchUserData, storeUserData } from './storeUserData'; // Import fetchUserData and storeUserData functions
+import { storeUserData } from './storeUserData'; // Import the storeUserData function
 
 const AppContent = () => {
-  const { setUserData, setPoints, setLevel, setProgress } = useUserContext();
+  const { setUserData } = useUserContext();
 
   useEffect(() => {
-    const initUser = async (user) => {
-      const fetchedUserData = await fetchUserData(user.id);
-      if (fetchedUserData) {
-        setUserData(fetchedUserData);
-        setPoints(fetchedUserData.uc);
-        setLevel(fetchedUserData.level);
-        setProgress(fetchedUserData.progress);
-      } else {
-        // Create new user in Firebase if not exists
-        await storeUserData(user, 0, 1, 0, '');
-        setUserData(user);
-      }
-    };
-
     if (window.Telegram.WebApp.initData) {
       const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe;
       if (initDataUnsafe && initDataUnsafe.user) {
-        initUser(initDataUnsafe.user);
+        setUserData(initDataUnsafe.user);
+        storeUserData(initDataUnsafe.user); // Store user data in Firestore
       }
     }
-  }, [setUserData, setPoints, setLevel, setProgress]);
+  }, [setUserData]);
 
   return (
     <Router>
