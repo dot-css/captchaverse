@@ -1,12 +1,10 @@
-import { db } from './firebaseConfig'; // Adjust the import path according to your file structure
+import { db } from './firebaseConfig';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const storeUserData = async (userData, points, level, progress, walletAddress) => {
+export const storeUserData = async (userData, points = 0, level = 1, progress = 0, walletAddress = '') => {
   if (!userData || !userData.id) return;
-
-  console.log('Attempting to store user data:', userData);
 
   try {
     const userRef = doc(db, 'users', userData.id.toString());
@@ -15,12 +13,12 @@ export const storeUserData = async (userData, points, level, progress, walletAdd
       lastName: userData.last_name,
       username: userData.username,
       id: userData.id,
-      uc: points, // Store UC points
-      level: level, // Store level
-      progress: progress, // Store progress
-      walletAddress: walletAddress // Store Solana wallet address
+      uc: points,
+      level: level,
+      progress: progress,
+      walletAddress: walletAddress
     });
-    toast.success('User data, points, level, progress, and wallet address stored successfully');
+    toast.success('User data stored successfully');
   } catch (error) {
     console.error('Error storing user data:', error);
     toast.error('Failed to store user data');
