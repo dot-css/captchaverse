@@ -80,8 +80,8 @@ const Home = () => {
   return (
     <div style={styles.container}>
       <header style={styles.header}>
-      <h1 style={styles.title}>{userData ? `${userData.first_name} ${userData.last_name}` : 'Welcome!'}</h1>
-        <div style={styles.points}>UC {points}</div>
+        <h1 style={styles.title}>{userData ? `${userData.first_name} ${userData.last_name}` : 'Welcome!'}</h1>
+        <div style={styles.points}>UC: {points}</div>
       </header>
       <main style={styles.main}>
         <div style={styles.levelContainer}>
