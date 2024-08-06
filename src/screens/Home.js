@@ -1,3 +1,4 @@
+// src/screens/Home.js
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaSync } from 'react-icons/fa';
