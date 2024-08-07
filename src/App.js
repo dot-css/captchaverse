@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MenuBar from './MenuBar';
@@ -8,17 +7,15 @@ import Events from './screens/Events';
 import Task from './screens/Task';
 import Profile from './screens/Profile';
 import { UserProvider, useUserContext } from './UserContext';
-import { storeUserData } from './storeUserData'; // Import the storeUserData function
 
 const AppContent = () => {
   const { setUserData } = useUserContext();
 
   useEffect(() => {
-    if (window.Telegram.WebApp.initData) {
+    if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData) {
       const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe;
       if (initDataUnsafe && initDataUnsafe.user) {
         setUserData(initDataUnsafe.user);
-        storeUserData(initDataUnsafe.user); // Store user data in Firestore
       }
     }
   }, [setUserData]);
