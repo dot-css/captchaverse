@@ -1,63 +1,100 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import MenuBar from './MenuBar';
-import Home from './screens/Home';
-import Referral from './screens/Referral';
-import Events from './screens/Events';
-import Task from './screens/Task';
-import Profile from './screens/Profile';
-import { UserProvider, useUserContext } from './UserContext';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
+import { FaHome, FaTrophy, FaUsers } from 'react-icons/fa';
+import Leaderboard from './Leaderboard';
+import Referral from './Referral';
 
-const AppContent = () => {
-  const { setUserData } = useUserContext();
-
-  useEffect(() => {
-    if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData) {
-      const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe;
-      if (initDataUnsafe && initDataUnsafe.user) {
-        setUserData(initDataUnsafe.user);
-      }
-    }
-  }, [setUserData]);
+const MenuBar = () => {
+  const { pathname } = useLocation();
+  const items = [
+    { to: "/", icon: <FaHome />, label: "Home" },
+    { to: "/leaderboard", icon: <FaTrophy />, label: "Leaderboard" },
+    { to: "/referral", icon: <FaUsers />, label: "Referral" }
+  ];
 
   return (
-    <Router>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-          padding: '20px',
-          boxSizing: 'border-box',
-          position: 'relative',
-          backgroundColor: '#1e1e1e',
-          color: '#E0E0E0',
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
-        }}
-      >
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/referral" element={<Referral />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/task" element={<Task />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </div>
-        <MenuBar />
-      </div>
-    </Router>
+    <div style={styles.menuBar}>
+      {items.map(({ to, icon, label }) => (
+        <Link
+          key={to}
+          to={to}
+          style={pathname === to ? { ...styles.menuItem, ...styles.activeMenuItem } : styles.menuItem}
+        >
+          <div style={styles.iconContainer}>
+            {icon}
+            {pathname === to && <span style={styles.label}>{label}</span>}
+          </div>
+        </Link>
+      ))}
+    </div>
   );
 };
 
-const App = () => {
-  return (
-    <UserProvider>
-      <AppContent />
-    </UserProvider>
-  );
+const App = () => (
+  <Router>
+    <div style={styles.app}>
+      <Routes>
+        <Route path="/" element={<div>Welcome to the Home Screen</div>} /> {/* Default Home Content */}
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/referral" element={<Referral />} />
+      </Routes>
+      <MenuBar />
+    </div>
+  </Router>
+);
+
+const styles = {
+  app: { 
+    textAlign: 'center', 
+    backgroundColor: '#181818', 
+    minHeight: '100vh', 
+    display: 'flex', 
+    flexDirection: 'column', 
+    justifyContent: 'center', 
+    color: '#e0e0e0', 
+    fontFamily: "'Roboto', sans-serif", 
+    margin: 0 
+  },
+  menuBar: { 
+    position: 'fixed', 
+    bottom: 0, 
+    left: '50%', 
+    transform: 'translateX(-50%)', 
+    display: 'flex', 
+    justifyContent: 'space-around', 
+    width: '100%', 
+    backgroundColor: '#2c2c2c', 
+    padding: '10px', 
+    borderRadius: '20px 20px 0 0', 
+    boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.7)' 
+  },
+  menuItem: { 
+    color: '#888', 
+    textDecoration: 'none', 
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    transition: 'color 0.3s, transform 0.3s', 
+    padding: '5px 10px', 
+    borderRadius: '10px' 
+  },
+  activeMenuItem: { 
+    color: '#bb86fc', 
+    backgroundColor: '#383838', 
+    padding: '15px', 
+    transform: 'scale(1.1)' 
+  },
+  iconContainer: { 
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    fontSize: '20px' 
+  },
+  label: { 
+    fontSize: '14px', 
+    marginLeft: '8px', 
+    color: '#ffffff' 
+  }
 };
 
 export default App;
