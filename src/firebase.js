@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithCustomToken } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-const firebaseConfig = {
+const firebase = {
     apiKey: "AIzaSyCQPmqtIY-t1DL4muitKlM5LdG5YlXRChw",
     authDomain: "captcha-verse.firebaseapp.com",
     projectId: "captcha-verse",
@@ -12,7 +12,7 @@ const firebaseConfig = {
     measurementId: "G-2JJ49JBDLC"
   };
 
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebase);
 const auth = getAuth(app);
 const db = getFirestore(app);
 

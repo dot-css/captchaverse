@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react
 import { FaHome, FaTrophy, FaUsers } from 'react-icons/fa';
 import Leaderboard from './Leaderboard';
 import Referral from './Referral';
+import Home from './Home';
 
 const MenuBar = () => {
   const { pathname } = useLocation();
@@ -34,7 +35,7 @@ const App = () => (
   <Router>
     <div style={styles.app}>
       <Routes>
-        <Route path="/" element={<div>Welcome to the Home Screen</div>} /> {/* Default Home Content */}
+        <Route path="/" element={<Home/>} /> {/* Default Home Content */}
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/referral" element={<Referral />} />
       </Routes>
@@ -63,7 +64,7 @@ const styles = {
     display: 'flex', 
     justifyContent: 'space-around', 
     width: '100%', 
-    backgroundColor: '#2c2c2c', 
+    backgroundColor: '#1E201E', 
     padding: '13px', 
     borderRadius: '20px 20px 0 0', 
     boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.7)' 
@@ -79,7 +80,7 @@ const styles = {
     borderRadius: '30px' 
   },
   activeMenuItem: { 
-    color: '#bb86fc', 
+    color: '#FFD700', 
     backgroundColor: '#383838', 
     padding: '15px', 
     transform: 'scale(1.1)' 
