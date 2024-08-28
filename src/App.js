@@ -31,6 +31,7 @@ const MenuBar = () => {
   );
 };
 
+
 const App = () => (
   <Router>
     <div style={styles.app}>
@@ -80,7 +81,7 @@ const styles = {
     borderRadius: '30px' 
   },
   activeMenuItem: { 
-    color: '#FFD700', 
+    color: '#7A1CAC', 
     backgroundColor: '#383838', 
     padding: '15px', 
     transform: 'scale(1.1)' 

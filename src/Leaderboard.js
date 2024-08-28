@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#0A0A0A', padding: 20 },
   title: { color: '#FFF', fontSize: 28, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
   card: { backgroundColor: '#1E1E1E', padding: 15, borderRadius: 10, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', elevation: 5 },
-  rank: { color: '#FFD700', fontSize: 20, fontWeight: 'bold' },
+  rank: { color: '#7A1CAC', fontSize: 20, fontWeight: 'bold' },
   topRank: { color: '#E4E4E4', fontSize: 22 },
   name: { color: '#FFF', fontSize: 18 },
   uc: { color: '#CCCCCC', fontSize: 16 },

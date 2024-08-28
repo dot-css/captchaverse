@@ -84,8 +84,8 @@ const styles = {
     marginRight: '10px',
   },
   button: {
-    backgroundColor: '#FFD700',
-    color: '#000',
+    backgroundColor: '#7A1CAC',
+    color: '#fff',
     padding: '10px 15px',
     border: 'none',
     borderRadius: '5px',
@@ -103,7 +103,7 @@ const styles = {
   },
   statNumber: {
     fontWeight: 'bold',
-    color: '#FFD700',
+    color: '#7A1CAC',
   },
   tipsBox: {
     marginTop: '30px',
