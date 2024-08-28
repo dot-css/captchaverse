@@ -64,7 +64,7 @@ const styles = {
     justifyContent: 'space-around', 
     width: '100%', 
     backgroundColor: '#2c2c2c', 
-    padding: '10px', 
+    padding: '13px', 
     borderRadius: '20px 20px 0 0', 
     boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.7)' 
   },
@@ -76,7 +76,7 @@ const styles = {
     justifyContent: 'center', 
     transition: 'color 0.3s, transform 0.3s', 
     padding: '5px 10px', 
-    borderRadius: '10px' 
+    borderRadius: '30px' 
   },
   activeMenuItem: { 
     color: '#bb86fc', 
